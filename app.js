@@ -18,18 +18,38 @@ app.get('/', function (req, res) {
 });
 
 app.get('/topic/new', function(req, res) {
-  res.render('new');
-});
-
-app.get('/topic', function (req, res) {
   fs.readdir('data', function (err, files) {
     if(err){
       console.log(err);
       res.status(500).send('Internal server error');
     }
-    res.render('view', { files : files });
+    res.render('new', { files : files });
   });
 });
+
+// 배열로 접근 url을 중복으로 설정
+app.get(['/topic', '/topic/:filename'], function (req, res) {
+  fs.readdir('data', function (err, files) {
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal server error');
+    }
+
+    var filename = req.params.filename;
+    if(filename){
+      fs.readFile('data/'+filename, 'utf8', (err, data) => {
+        if (err){
+          console.log(err);
+          res.status(500).send('Internal server error');
+        }
+        res.render('view', { title : filename, data : data, files : files });
+      });
+    }else{
+      res.render('view', { files : files });
+    }
+  });
+});
+
 
 app.post('/topic', function(req, res){
   var title = req.body.title;
@@ -42,26 +62,11 @@ app.post('/topic', function(req, res){
       console.log(err);
       res.status(500).send('Internal server error');
     }
-    res.send('Success');
+    // redirect 는 다시 url을 태운다.
+    res.redirect('/topic/'+title);
   });
 });
 
-app.get('/topic/:filename', function (req, res) {
-  var filename = req.params.filename;
-  fs.readdir('data', function (err, files) {
-    if(err){
-      console.log(err);
-      res.status(500).send('Internal server error');
-    }
-    fs.readFile('data/'+filename, 'utf8', (err, data) => {
-      if (err){
-        console.log(err);
-        res.status(500).send('Internal server error');
-      }
-      res.render('view', {title : filename, data : data, files : files});
-    });
-  });
-});
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');

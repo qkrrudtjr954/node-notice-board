@@ -4,6 +4,15 @@ html
     title
     meta(charset='utf-8')
   body
+    h1
+      a(href='/topic')!='Server Side Javascript'
+
+    ul
+      each val in files
+        li
+          a(href='/topic/'+val)!=val
+
+
     form(action='/topic' method='post')
       p
         span!='title'
