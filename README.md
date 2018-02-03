@@ -7,6 +7,7 @@
 
 ## Dev Environment
 
+- OS : macOS High Sierra
 - Language : javascript
 - DataBase : File
 - Framework : Nodejs, express
@@ -20,8 +21,8 @@
 - Nodejs를 사용한 게시판 어플리케이션
 - 템플렛 엔진은 pug 사용
 - 글을 작성하면 제목을 이름으로 한 파일로 /data 하위에 .txt로 저장된다.
-
-
+  - title을 파일 이름으로 한 txt파일을 생성한다.
+  - ```/topic/title``` 로 redirection한다.
 
 ```javascript
 app.post('/topic', function(req, res){
@@ -40,11 +41,13 @@ app.post('/topic', function(req, res){
   });
 });
 ```
-    - title을 파일 이름으로 한 txt파일을 생성한다.
-    - ```/topic/title``` 로 redirection한다.
+
 
 
 - 글 목록은 /data 하위의 모든 파일의 제목을 불러온다.
+  - data폴더 하위에 있는 파일의 목록을 가져온다.
+  - 파일 목록과 함께 ```new.pug```로 랜더링시킨다.
+
 
 ```javascript
 fs.readdir('data', function (err, files) {
@@ -56,8 +59,6 @@ fs.readdir('data', function (err, files) {
 });
 ```
 
-    - data폴더 하위에 있는 파일의 목록을 가져온다.
-    - 파일 목록과 함께 ```new.pug```로 랜더링시킨다.
 
 
 
