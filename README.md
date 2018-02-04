@@ -60,6 +60,36 @@ fs.readdir('data', function (err, files) {
 ```
 
 
+## Dependencies
+
+- dependencies
+  - pug
+  - body-parser
+  - express
+
+
+#### package.json
+
+
+```json
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "simple web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4"
+  }
+}
+```
+
 
 
 ## Todo
